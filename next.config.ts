@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-   async rewrites() {
+    async rewrites() {
         return [
             {
                 source: "/api/:path*",
-                destination: "http://localhost:3000/:path*",
+                destination: "https://analise-emprestimos.onrender.com/:path*",
             },
         ];
     },

@@ -11,7 +11,7 @@ interface Cliente {
     estado_onde_reside: string
 }
 
-const API_URL = "/api";
+const API_URL = "https://analise-emprestimos.onrender.com";
 
 export default function Clientes() {
     const [clientes, setClientes] = useState<Cliente[]>([]);
@@ -26,26 +26,23 @@ export default function Clientes() {
 
     //Listar Clientes
      async function listarClientes() {
-       try {
-          console.log("Chamando API:", `${API_URL}/customers`);
+        const url = `${API_URL}/customers`;
 
-          const resposta = await fetch(`${API_URL}/customers`);
+        console.log("API_URL:", API_URL);
+        console.log("URL completa:", url);
 
-          console.log("Status:", resposta.status);
+      try {
+        const resposta = await fetch(url);
 
-        if (!resposta.ok) {
-            throw new Error(`Erro HTTP: ${resposta.status}`);
-        }
+        console.log("Status:", resposta.status);
+        console.log("OK:", resposta.ok);
 
-          const dados = await resposta.json();
+        const dados = await resposta.json();
 
-          console.log("Dados:", dados);
-
-          setClientes(dados);
-
-      } catch (error) {
-        console.error("ERROR NO FETCH:", error);
-        setMensagem("Erro ao listar clientes.");
+        setClientes(dados)
+        console.log("Dados:", dados);
+      } catch (erro) {
+         console.error("ERRO NO FETCH:", erro);
       }
     }
 
@@ -77,6 +74,7 @@ export default function Clientes() {
             limparFormulario();
             listarClientes();
         } catch (error) {
+          console.log(error)
             setMensagem("Erro ao cadastrar cliente.")
         }
     }

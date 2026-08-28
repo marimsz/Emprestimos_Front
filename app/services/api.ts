@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/analise";
+const API_URL = "https://analise-emprestimos.onrender.com";
 
 export async function listarClientes() {
     const resposta = await fetch(`${API_URL}/customers`);
