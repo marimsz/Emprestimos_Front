@@ -47,39 +47,46 @@ export default function Clientes() {
     }
 
     //Cadastrar Clientes
-    async function cadastrarCliente(e: React.FormEvent) {
-        e.preventDefault();
 
-        try {
-            const resposta = await fetch(`${API_URL}/customers`, {
-               method: "POST",
-               headers: {
-                "Content-type": 'application/json',
-               },
-               body: JSON.stringify({
+async function cadastrarCliente(e: React.FormEvent) {
+    e.preventDefault();
+
+    try {
+        const resposta = await fetch(`${API_URL}/customers`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
                 cpf,
                 nome,
                 idade: Number(idade),
                 renda_mensal: Number(rendaMensal),
                 estado_onde_reside: estado,
-               }),
-            });
+            }),
+        });
 
-            if (!resposta.ok) {
-                throw new Error("Erro ao cadastrar cliente");
-            }
+        const dados = await resposta.json();
 
-            alert("Cliente Cadastrado com sucesso!")
-
-            setMensagem("Cliente cadastrado com sucesso!");
-
-            limparFormulario();
-            await listarClientes();
-        } catch (error) {
-          console.log(error)
-            setMensagem("Erro ao cadastrar cliente.")
+        if (!resposta.ok) {
+            alert(dados.erro || "Erro ao cadastrar cliente");
+            return;
         }
+
+        alert("Cliente cadastrado com sucesso!");
+
+        limparFormulario();
+
+        await listarClientes();
+
+    } catch (error) {
+        console.error(error);
+
+        alert("Erro ao cadastrar cliente. Verifique sua conexão com o servidor.");
     }
+}
+
+
 
     //Buscar por CPF
     async function buscarPorCpf() {
