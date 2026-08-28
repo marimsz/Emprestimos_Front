@@ -69,10 +69,12 @@ export default function Clientes() {
                 throw new Error("Erro ao cadastrar cliente");
             }
 
+            alert("Cliente Cadastrado com sucesso!")
+
             setMensagem("Cliente cadastrado com sucesso!");
 
             limparFormulario();
-            listarClientes();
+            await listarClientes();
         } catch (error) {
           console.log(error)
             setMensagem("Erro ao cadastrar cliente.")
