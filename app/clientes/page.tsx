@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 
 interface Cliente {
+    id_cliente: number,
     cpf: string,
     nome: string,
     idade: number,
@@ -153,7 +154,7 @@ async function cadastrarCliente(e: any) {
     }
     
     //Deletar Clientes
-    async function deletarCliente(cpfCliente: string) {
+    async function deletarCliente(id_cliente: number) {
         const confirmar = window.confirm(
             "Tem certeza que deseja deletar este cliente?"
         );
@@ -163,10 +164,10 @@ async function cadastrarCliente(e: any) {
         }
 
         try {
-         console.log("CPF enviado:", cpfCliente);
-         console.log("URL:", `${API_URL}/customers/${cpfCliente}`);
+         console.log("ID enviado:", id_cliente);
+         console.log("URL:", `${API_URL}/customers/${id_cliente}`);
 
-            const resposta = await fetch(`${API_URL}/customers/${cpfCliente}`, {
+            const resposta = await fetch(`${API_URL}/customers/${id_cliente}`, {
                 method: "DELETE"
             });
 
@@ -570,6 +571,9 @@ return (
                     color: "white",
                   }}
                 >
+                  <th style={{ padding: "14px", textAlign: "center" }}>
+                    ID
+                  </th>
                   <th style={{ padding: "14px", textAlign: "left" }}>
                     CPF
                   </th>
@@ -599,7 +603,7 @@ return (
               <tbody>
                 {clientes.map((cliente, index) => (
                   <tr
-                    key={cliente.cpf}
+                    key={cliente.id_cliente}
                     style={{
                       backgroundColor:
                         index % 2 === 0 ? "#f8fafc" : "white",
@@ -607,7 +611,7 @@ return (
                     }}
                   >
                     <td style={{ padding: "14px" }}>
-                      {cliente.cpf}
+                      {cliente.id_cliente}
                     </td>
 
                     <td
@@ -684,7 +688,7 @@ return (
 
                       <button
                         onClick={() =>
-                          deletarCliente(cliente.cpf)
+                          deletarCliente(cliente.id_cliente)
                         }
                         style={{
                           backgroundColor: "#c62828",
