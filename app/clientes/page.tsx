@@ -48,7 +48,7 @@ export default function Clientes() {
 
     //Cadastrar Clientes
 
-async function cadastrarCliente(e: React.FormEvent) {
+async function cadastrarCliente(e: any) {
     e.preventDefault();
 
     try {
@@ -163,19 +163,28 @@ async function cadastrarCliente(e: React.FormEvent) {
         }
 
         try {
+         console.log("CPF enviado:", cpfCliente);
+         console.log("URL:", `${API_URL}/customers/${cpfCliente}`);
+
             const resposta = await fetch(`${API_URL}/customers/${cpfCliente}`, {
                 method: "DELETE"
             });
 
+            console.log("Status da resposta:", resposta.status);
+
+            const texto = await resposta.text();
+
+            console.log("Resposta do backend:", texto);
+
             if (!resposta.ok) {
-                throw new Error("Erro ao deletar cliente");
+                throw new Error(texto || "Erro ao deletar cliente");
             }
 
             setMensagem("Cliente deletado com sucesso!");
 
             listarClientes();
         } catch (error) {
-            console.error(error);
+            console.error("ERRO AO DELETAR:", error);
             setMensagem("Erro ao deletar cliente.");
         }
     }
