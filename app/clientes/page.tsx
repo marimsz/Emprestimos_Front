@@ -365,7 +365,7 @@ return (
                 type="text"
                 value={cpf}
                 onChange={(e) => setCpf(e.target.value)}
-                placeholder="Digite o CPf"
+                placeholder="Digite o CPF"
                 style={{
                   flex: 1,
                   padding: "12px",
