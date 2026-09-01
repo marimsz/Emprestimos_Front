@@ -330,6 +330,7 @@ export default function Analise() {
                     <td
                       style={{
                         padding: "12px",
+                        color: "#333",
                       }}
                     >
                       {cliente.cpf}
@@ -351,6 +352,7 @@ export default function Analise() {
                       style={{
                         padding: "12px",
                         textAlign: "center",
+                        color: "#333",
                       }}
                     >
                       {cliente.idade}
@@ -361,6 +363,7 @@ export default function Analise() {
                       style={{
                         padding: "12px",
                         textAlign: "right",
+                        color: "#333",
                       }}
                     >
                       R${" "}
@@ -485,6 +488,7 @@ export default function Analise() {
                 border: "1px solid #ccc",
                 borderRadius: "6px",
                 fontSize: "15px",
+                color: "#333",
               }}
             />
 
@@ -525,6 +529,7 @@ export default function Analise() {
                 border: "1px solid #ccc",
                 borderRadius: "6px",
                 fontSize: "15px",
+                color: "#333",
               }}
             />
 
@@ -572,6 +577,7 @@ export default function Analise() {
                     "1px solid #ccc",
                   borderRadius: "6px",
                   fontSize: "15px",
+                  color: "#333",
                 }}
               />
 
@@ -609,6 +615,7 @@ export default function Analise() {
                     "1px solid #ccc",
                   borderRadius: "6px",
                   fontSize: "15px",
+                  color: "#333",
                 }}
               />
 
@@ -630,7 +637,6 @@ export default function Analise() {
                 display: "block",
                 marginBottom: "6px",
                 fontWeight: "bold",
-                color: "#333",
               }}
             >
               Estado onde reside
@@ -652,6 +658,7 @@ export default function Analise() {
                   "1px solid #ccc",
                 borderRadius: "6px",
                 fontSize: "15px",
+                color: "#333",
               }}
             />
 
