@@ -17,6 +17,7 @@ const API_URL = "https://analise-emprestimos.onrender.com";
 export default function Clientes() {
     const [clientes, setClientes] = useState<Cliente[]>([]);
 
+    const [id_cliente, setIdCliente] = useState("");
     const [cpf, setCpf] = useState("");
     const [nome, setNome] = useState("");
     const [idade, setIdade] = useState("");
@@ -87,71 +88,103 @@ async function cadastrarCliente(e: any) {
     }
 }
 
+    // Buscar por ID
+async function buscarPorId() {
 
+    if (!id_cliente) {
+        setMensagem("Digite o ID do cliente.");
+        return;
+    }
 
-    //Buscar por CPF
-    async function buscarPorCpf() {
-        if (!cpf) {
-            setMensagem("Digite um CPF para buscar");
+    try {
+
+        const resposta = await fetch(
+            `${API_URL}/customers/${id_cliente}`
+        );
+
+        if (!resposta.ok) {
+            setMensagem("Cliente não encontrado.");
             return;
         }
 
-        try {
-            const resposta = await fetch(`${API_URL}/customers/${cpf}`);
+        const cliente: Cliente = await resposta.json();
 
-            if (!resposta.ok) {
-                setMensagem("Cliente não encontrado.");
-                return;
-            }
 
-            const cliente: Cliente = await resposta.json();
+        setIdCliente(String(cliente.id_cliente));
+        setCpf(cliente.cpf);
+        setNome(cliente.nome);
+        setIdade(String(cliente.idade));
+        setRendaMensal(String(cliente.renda_mensal));
+        setEstado(cliente.estado_onde_reside);
 
-            setNome(cliente.nome);
-            setIdade(String(cliente.idade));
-            setRendaMensal(String(cliente.renda_mensal));
-            setEstado(cliente.estado_onde_reside);
+        setMensagem("Cliente encontrado.");
 
-            setMensagem("Cliente encontrado.");
-        } catch (error) {
-            console.error(error); 
-                setMensagem("Erro ao buscar cliente.");
-            }
+    } catch (error) {
+
+        console.error(error);
+        setMensagem("Erro ao buscar cliente.");
+    }
+}
+
+    // Atualizar Cliente
+async function atualizarCliente() {
+
+    if (!cpf) {
+        setMensagem("Digite o CPF do cliente.");
+        return;
     }
 
-    //Atualizar Cliente
-    async function atualizarCliente() {
-        if (!cpf) {
-            setMensagem("Digite o CPF do cliente.");
+    try {
+
+        // Primeiro busca o cliente pelo CPF para descobrir o ID
+        const respostaBusca = await fetch(
+            `${API_URL}/customers/${cpf}`
+        );
+
+        if (!respostaBusca.ok) {
+            setMensagem("Cliente não encontrado.");
             return;
         }
 
-        try {
-            const resposta = await fetch(`${API_URL}/customers/${cpf}`, {
-              method: "PUT",
-              headers: {
-                "Content-type": "application/json",
-              },
-              body: JSON.stringify({
-                nome,
-                idade: Number(idade),
-                renda_mensal: Number(rendaMensal),
-                estado_onde_reside: estado,
-              }),
-            });
+        const cliente: Cliente = await respostaBusca.json();
 
-            if (!resposta.ok) {
-                throw new Error("Erro ao atualizar cliente");
+        const resposta = await fetch(
+            `${API_URL}/customers/${cliente.id_cliente}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome,
+                    idade: Number(idade),
+                    renda_mensal: Number(rendaMensal),
+                    estado_onde_reside: estado
+                })
             }
+        );
 
-            setMensagem("Cliente atualizado com sucesso!");
+        const dados = await resposta.json();
 
-            limparFormulario();
-            listarClientes();
-        } catch (error) {
-            console.error(error);
-            setMensagem("Erro ao atualizar cliente."); 
+        if (!resposta.ok) {
+            throw new Error(
+                dados.erro || "Erro ao atualizar cliente"
+            );
         }
+
+        setMensagem("Cliente atualizado com sucesso!");
+
+        await listarClientes();
+
+    } catch (error) {
+
+        console.error(error);
+
+        setMensagem("Erro ao atualizar cliente.");
     }
+}
+
+    
     
     //Deletar Clientes
     async function deletarCliente(id_cliente: number) {
@@ -192,6 +225,7 @@ async function cadastrarCliente(e: any) {
 
     //Limpar Formulario
     function limparFormulario() {
+        setIdCliente("");
         setCpf("");
         setNome("");
         setIdade("");
@@ -289,15 +323,15 @@ return (
                 color: "#333",
               }}
             >
-              CPF
+              ID do Cliente
             </label>
 
             <div style={{ display: "flex", gap: "10px" }}>
               <input
                 type="text"
-                value={cpf}
+                value={id_cliente}
                 onChange={(e) => setCpf(e.target.value)}
-                placeholder="Digite o CPF"
+                placeholder="Digite o ID do cliente"
                 style={{
                   flex: 1,
                   padding: "12px",
@@ -309,7 +343,7 @@ return (
 
               <button
                 type="button"
-                onClick={buscarPorCpf}
+                onClick={buscarPorId}
                 style={{
                   backgroundColor: "#1e3a5f",
                   color: "white",
@@ -616,6 +650,16 @@ return (
 
                     <td
                       style={{
+                      padding: "14px",
+                      fontWeight: "bold",
+                      color: "#333",
+                    }}
+                    >
+                     {cliente.cpf}
+                    </td>
+
+                    <td
+                      style={{
                         padding: "14px",
                         fontWeight: "bold",
                         color: "#333",
@@ -663,6 +707,7 @@ return (
                     >
                       <button
                         onClick={() => {
+                          setIdCliente(String(cliente.id_cliente));
                           setCpf(cliente.cpf);
                           setNome(cliente.nome);
                           setIdade(String(cliente.idade));
