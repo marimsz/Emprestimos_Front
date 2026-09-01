@@ -126,36 +126,26 @@ async function buscarPorId() {
     }
 }
 
-    // Atualizar Cliente
+  
+// Atualizar Cliente
 async function atualizarCliente() {
 
-    if (!cpf) {
-        setMensagem("Digite o CPF do cliente.");
+    if (!id_cliente) {
+        setMensagem("Digite o ID do cliente ou clique em Editar.");
         return;
     }
 
     try {
 
-        // Primeiro busca o cliente pelo CPF para descobrir o ID
-        const respostaBusca = await fetch(
-            `${API_URL}/customers/${cpf}`
-        );
-
-        if (!respostaBusca.ok) {
-            setMensagem("Cliente não encontrado.");
-            return;
-        }
-
-        const cliente: Cliente = await respostaBusca.json();
-
         const resposta = await fetch(
-            `${API_URL}/customers/${cliente.id_cliente}`,
+            `${API_URL}/customers/${id_cliente}`,
             {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+                    cpf,
                     nome,
                     idade: Number(idade),
                     renda_mensal: Number(rendaMensal),
@@ -178,13 +168,11 @@ async function atualizarCliente() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error("ERRO AO ATUALIZAR:", error);
 
         setMensagem("Erro ao atualizar cliente.");
     }
-}
-
-    
+}   
     
     //Deletar Clientes
     async function deletarCliente(id_cliente: number) {
@@ -328,9 +316,9 @@ return (
 
             <div style={{ display: "flex", gap: "10px" }}>
               <input
-                type="text"
+                type="number"
                 value={id_cliente}
-                onChange={(e) => setCpf(e.target.value)}
+                onChange={(e) => setIdCliente(e.target.value)}
                 placeholder="Digite o ID do cliente"
                 style={{
                   flex: 1,
