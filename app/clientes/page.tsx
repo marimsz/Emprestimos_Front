@@ -300,6 +300,52 @@ return (
         </h2>
 
         <form onSubmit={cadastrarCliente}>
+
+          {/* ID do Cliente */}
+          <div style={{ marginBottom: "15px" }}>
+          <label
+            style={{
+            display: "block",
+            marginBottom: "6px",
+            fontWeight: "bold",
+            color: "#333",
+          }}
+           >
+          ID do Cliente
+          </label>
+
+          <div style={{ display: "flex", gap: "10px" }}>
+          <input
+            type="number"
+            value={id_cliente}
+            onChange={(e) => setIdCliente(e.target.value)}
+            placeholder="Digite o ID do cliente"
+            style={{
+            flex: 1,
+            padding: "12px",
+            border: "1px solid #ccc",
+            borderRadius: "6px",
+            fontSize: "15px",
+          }}
+          />
+
+          <button
+           type="button"
+           onClick={buscarPorId}
+           style={{
+          backgroundColor: "#1e3a5f",
+          color: "white",
+          border: "none",
+          padding: "12px 20px",
+          borderRadius: "6px",
+          cursor: "pointer",
+          fontWeight: "bold",
+        }}
+        >
+        Buscar
+       </button>
+       </div>
+       </div>
           
           {/* CPF */}
           <div style={{ marginBottom: "15px" }}>
@@ -311,15 +357,15 @@ return (
                 color: "#333",
               }}
             >
-              ID do Cliente
+              CPF
             </label>
 
             <div style={{ display: "flex", gap: "10px" }}>
               <input
-                type="number"
-                value={id_cliente}
-                onChange={(e) => setIdCliente(e.target.value)}
-                placeholder="Digite o ID do cliente"
+                type="text"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+                placeholder="Digite o CPf"
                 style={{
                   flex: 1,
                   padding: "12px",
