@@ -39,7 +39,7 @@ export default function Analise() {
       try {
         console.log("Buscado clientes em:", `${API_URL}/customers`);
 
-        const resposta = await fetch(`${API_URL}/customers-loans`);
+        const resposta = await fetch(`${API_URL}/customer-loans`);
 
         console.log("Status:", resposta.status);
 
