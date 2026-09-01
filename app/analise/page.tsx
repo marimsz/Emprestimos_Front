@@ -637,6 +637,7 @@ export default function Analise() {
                 display: "block",
                 marginBottom: "6px",
                 fontWeight: "bold",
+                color: "#333",
               }}
             >
               Estado onde reside
