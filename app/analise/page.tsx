@@ -20,7 +20,7 @@ interface Cliente {
   estado_onde_reside: string,
 }
 
-const API_URL = "/api";
+const API_URL = "https://analise-emprestimos.onrender.com";
 
 export default function Analise() {
     const [cpf, setCpf] = useState("");
@@ -39,7 +39,7 @@ export default function Analise() {
       try {
         console.log("Buscado clientes em:", `${API_URL}/customers`);
 
-        const resposta = await fetch(`${API_URL}/customers`);
+        const resposta = await fetch(`${API_URL}/customers-loans`);
 
         console.log("Status:", resposta.status);
 
