@@ -325,6 +325,7 @@ return (
             border: "1px solid #ccc",
             borderRadius: "6px",
             fontSize: "15px",
+            color: "#333",
           }}
           />
 
@@ -371,6 +372,7 @@ return (
                   border: "1px solid #ccc",
                   borderRadius: "6px",
                   fontSize: "15px",
+                  color: "#333",
                 }}
               />
             </div>
@@ -401,6 +403,7 @@ return (
                 border: "1px solid #ccc",
                 borderRadius: "6px",
                 fontSize: "15px",
+                color: "#333",
               }}
             />
           </div>
@@ -438,6 +441,7 @@ return (
                   border: "1px solid #ccc",
                   borderRadius: "6px",
                   fontSize: "15px",
+                  color: "#333",
                 }}
               />
             </div>
@@ -466,6 +470,7 @@ return (
                   border: "1px solid #ccc",
                   borderRadius: "6px",
                   fontSize: "15px",
+                  color: "#333",
                 }}
               />
             </div>
@@ -496,6 +501,7 @@ return (
                 border: "1px solid #ccc",
                 borderRadius: "6px",
                 fontSize: "15px",
+                color: "#333",
               }}
             />
           </div>
@@ -661,7 +667,10 @@ return (
                       borderBottom: "1px solid #ddd",
                     }}
                   >
-                    <td style={{ padding: "14px" }}>
+                    <td style={{ 
+                      padding: "14px",
+                      color: "#333",
+                      }}>
                       {cliente.id_cliente}
                     </td>
 
@@ -689,6 +698,7 @@ return (
                       style={{
                         padding: "14px",
                         textAlign: "center",
+                        color: "#333",
                       }}
                     >
                       {cliente.idade}
@@ -698,6 +708,7 @@ return (
                       style={{
                         padding: "14px",
                         textAlign: "right",
+                        color: "#333",
                       }}
                     >
                       R${" "}
