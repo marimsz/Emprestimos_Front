@@ -126,12 +126,11 @@ async function buscarPorId() {
     }
 }
 
-  
 // Atualizar Cliente
 async function atualizarCliente() {
 
     if (!id_cliente) {
-        setMensagem("Digite o ID do cliente ou clique em Editar.");
+        setMensagem("Digite o ID do cliente.");
         return;
     }
 
@@ -157,9 +156,8 @@ async function atualizarCliente() {
         const dados = await resposta.json();
 
         if (!resposta.ok) {
-            throw new Error(
-                dados.erro || "Erro ao atualizar cliente"
-            );
+            setMensagem(dados.erro || "Erro ao atualizar cliente");
+            return;
         }
 
         setMensagem("Cliente atualizado com sucesso!");
@@ -172,7 +170,8 @@ async function atualizarCliente() {
 
         setMensagem("Erro ao atualizar cliente.");
     }
-}   
+}
+
     
     //Deletar Clientes
     async function deletarCliente(id_cliente: number) {
@@ -374,22 +373,6 @@ return (
                   fontSize: "15px",
                 }}
               />
-
-              <button
-                type="button"
-                onClick={buscarPorId}
-                style={{
-                  backgroundColor: "#1e3a5f",
-                  color: "white",
-                  border: "none",
-                  padding: "12px 20px",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                }}
-              >
-                Buscar
-              </button>
             </div>
           </div>
 
